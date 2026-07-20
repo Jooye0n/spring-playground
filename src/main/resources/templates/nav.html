@@ -1,0 +1,19 @@
+<div class="nav" th:fragment="navbar" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <div class="nav-left">
+        <a class="logo">SpringMall</a>
+        <a href="/list">List</a>
+        <a href="/write">Write</a>
+    </div>
+    <div class="nav-right" sec:authorize="isAuthenticated()">
+        <span sec:authentication="principal.username"></span>
+        <span>님 안녕하세요.</span>
+        <button th:onclick="|location.href='/my-page'|">마이페이지</button>
+        <form th:action="@{/logout}" method="post">
+            <button type="submit">로그아웃</button>
+        </form>
+    </div>
+    <div class="nav-right" sec:authorize="isAnonymous()">
+        <button type="button" th:onclick="|location.href='/join'|">회원가입</button>
+        <button type="button" th:onclick="|location.href='/login'|">로그인</button>
+    </div>
+</div>

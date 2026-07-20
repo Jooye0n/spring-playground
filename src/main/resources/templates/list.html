@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, member-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link href="/main.css" rel="stylesheet">
+</head>
+<body>
+    <div th:replace="~{ nav.html::navbar}"></div>
+    <div class="card" th:each="i:${items}">
+        <img src="https://placehold.co/300">
+        <div>
+            <h4 th:text="${i.getTitle()}"></h4>
+            <a th:href="@{'/detail/' + ${i.getId()} }">상세페이지</a>
+            <p th:text="${i.getPrice()}"></p>
+            <button th:onclick="|location.href='/modify/${i.getId()}'|">수정</button>
+            <button th:onclick="fetch('/item?id=[[${i.getId()}]]', { method: 'DELETE' })
+                .then((a) => {
+                    console.log(a);
+                    location.reload()
+                })
+
+            ">삭제</button>
+        </div>
+    </div>
+    <div class="pagination">
+        <a th:if="${currentPage > 1}"
+           th:href="@{/list/page/{page}(page=${currentPage-1})}">
+            이전
+        </a>
+        <th:block th:each="i : ${#numbers.sequence(1, totalPages)}">
+            <a th:href="@{/list/page/{page}(page=${i})}"
+               th:text="${i}"
+               th:classappend="${i == currentPage} ? 'active'">
+            </a>
+        </th:block>
+        <a th:if="${currentPage < totalPages}"
+           th:href="@{/list/page/{page}(page=${currentPage+1})}">
+            다음
+        </a>
+    </div>
+<script>
+</script>
+</body>
+</html>
