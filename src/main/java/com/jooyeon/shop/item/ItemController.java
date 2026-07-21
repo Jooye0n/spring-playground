@@ -89,4 +89,5 @@ public class ItemController {
         model.addAttribute("totalPages", result.getTotalPages());
         return "list.html";
     }
+
 }

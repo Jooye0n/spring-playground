@@ -15,6 +15,14 @@
     <img src="https://placehold.co/300">
     <h4 th:text="${data.getTitle()}"></h4>
     <p th:text="${data.getPrice() + '원'}"></p>
+
+    <div class="comment-box">
+        <form action="/comment" method="post" class="comment-form">
+            <input type="hidden" name="parentId" th:value="${data.getId()}">
+            <input type="text" name="comment" placeholder="댓글을 입력하세요." class="comment-input">
+            <button type="submit" class="comment-button">등록</button>
+        </form>
+    </div>
 </div>
 </body>
 </html>
