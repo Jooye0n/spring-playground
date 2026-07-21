@@ -16,6 +16,13 @@
     <h4 th:text="${data.getTitle()}"></h4>
     <p th:text="${data.getPrice() + '원'}"></p>
 
+    <form action="/order" method="post">
+        <input name="title" th:value="${data.title}">
+        <input name="price" th:value="${data.price}">
+        <input name="count" placeholder="count">
+        <button>주문하기</button>
+    </form>
+
     <div class="comment-box">
         <form action="/comment" method="post" class="comment-form">
             <input type="hidden" name="parentId" th:value="${data.getId()}">
