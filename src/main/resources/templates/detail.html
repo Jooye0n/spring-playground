@@ -22,6 +22,11 @@
             <input type="text" name="comment" placeholder="댓글을 입력하세요." class="comment-input">
             <button type="submit" class="comment-button">등록</button>
         </form>
+        <div class="comment-list">
+            <div class="comment-item" th:each="commentData : ${comments}">
+                <p th:text="${commentData.getContent()}"></p>
+            </div>
+        </div>
     </div>
 </div>
 </body>

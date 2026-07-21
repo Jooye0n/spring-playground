@@ -1,5 +1,7 @@
 package com.jooyeon.shop.item;
 
+import com.jooyeon.shop.comment.Comment;
+import com.jooyeon.shop.comment.CommentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -19,6 +21,7 @@ import java.util.Optional;
 public class ItemController {
     //상품 관련 API를 보관하기 위한 Controller
     private final ItemRepository itemRepository;
+    private final CommentRepository commentRepository;
     private final ItemService itemService;
 
     @GetMapping("/list")
@@ -67,8 +70,10 @@ public class ItemController {
     @GetMapping("/detail/{id}")
     String detail(@PathVariable Integer id, Model model){
         Optional<Item> result = itemRepository.findById(id.longValue());
+        List<Comment> comment = commentRepository.findAllByParentId(id.longValue());
         if(result.isPresent()){
             model.addAttribute("data", result.get());
+            model.addAttribute("comments", comment);
             return "detail.html";
         }else{
             return "redirect:/list";
